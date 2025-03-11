@@ -4,10 +4,17 @@ use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegiesterUserController;
 use App\Http\Controllers\SessionController;
-
+use App\Jobs\TranslateJob;
+use App\Models\Job;
 
 Route::view('/','home');
 
+Route::get('test', function() {
+   $job = Job::first();
+    TranslateJob::dispatch($job);
+
+    return 'Done';
+});
 
 Route::get('/jobs',[JobController::class, 'index']);
 Route::get('/jobs/create', [JobController::class, 'create']);
